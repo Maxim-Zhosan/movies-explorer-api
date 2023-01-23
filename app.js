@@ -26,7 +26,7 @@ app.use(requestLogger); // подключаем логгер запросов
 // app.use(cookieParser());
 mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
 
-app.use('/api', require('./routes/index'));
+app.use('/', require('./routes/index'));
 
 app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors()); // обработчик ошибок celebrate

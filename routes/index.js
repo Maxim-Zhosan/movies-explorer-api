@@ -4,7 +4,6 @@ const auth = require('../middlewares/auth');
 const {
   createUser, login, logout,
 } = require('../controllers/users');
-const { REGEX } = require('../constants/regex');
 const NotFoundError = require('../errors/not-found-err');
 
 const pageNotFoundError = (req, res, next) => {

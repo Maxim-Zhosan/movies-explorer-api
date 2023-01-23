@@ -8,7 +8,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { corsHandler } = require('./middlewares/cors-handler');
 // const cookieParser = require("cookie-parser");
 
-
 const { PORT = 3000 } = process.env;
 const app = express();
 

@@ -100,14 +100,13 @@ module.exports.logout = (req, res, next) => {
   const { cookie } = req.headers;
   if (!cookie || !cookie.startsWith('jwt=')) {
     return next(new UnauthorizedError('Необходима авторизация'));
-  } else {
-    res.clearCookie('jwt').redirect('/');
   }
+  return res.clearCookie('jwt').redirect('/');
 };
 
 module.exports.createUser = (req, res, next) => {
   const {
-    name, email, password, 
+    name, email, password,
   } = req.body;
   User.findOne({ email })
     .then((user) => {
@@ -116,7 +115,7 @@ module.exports.createUser = (req, res, next) => {
       } else {
         bcrypt.hash(password, 10)
           .then((hash) => User.create({
-            name, email, password: hash, 
+            name, email, password: hash,
           }))
           .then((newUser) => res.status(201).send(
             {
@@ -136,6 +135,3 @@ module.exports.createUser = (req, res, next) => {
     })
     .catch(next);
 };
-
-
-

@@ -35,14 +35,14 @@ const cardSchema = new mongoose.Schema({
     validate: {
       validator: (v) => REGEX.test(v),
     },
-  },  
+  },
   thumbnail: {
     type: String,
     required: true,
     validate: {
       validator: (v) => REGEX.test(v),
     },
-  },  
+  },
   owner: {
     type: mongoose.Schema.Types.Mixed,
     required: true,

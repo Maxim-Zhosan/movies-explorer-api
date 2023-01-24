@@ -6,6 +6,7 @@ const { errors } = require('celebrate');
 const { errHandler } = require('./middlewares/err-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { corsHandler } = require('./middlewares/cors-handler');
+const { NODE_ENV, DB } = process.env;
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -22,7 +23,7 @@ app.use((req, res, next) => corsHandler(req, res, next));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(requestLogger); // подключаем логгер запросов
-mongoose.connect('mongodb://localhost:27017/bitfilmsdb');
+mongoose.connect(NODE_ENV === 'production' ? DB : 'mongodb://localhost:27017/bitfilmsdb');
 
 app.use('/', require('./routes/index'));
 

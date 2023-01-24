@@ -3,7 +3,6 @@ const { celebrate, Joi } = require('celebrate');
 const {
   updateProfile, getCurrentUser,
 } = require('../controllers/users');
-const { REGEX } = require('../constants/regex');
 
 users.get('/me', getCurrentUser);
 users.patch('/me', celebrate({

@@ -1,6 +1,6 @@
 const allowedCors = [
-  'http://mesto-mz.nomoredomains.club',
-  'https://mesto-mz.nomoredomains.club',
+  'http://movies-mz.nomoredomains.rocks',
+  'https://movies-mz.nomoredomains.rocks',
   'http://localhost:3000',
 ];
 

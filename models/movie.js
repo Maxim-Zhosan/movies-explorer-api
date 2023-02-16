@@ -25,9 +25,6 @@ const cardSchema = new mongoose.Schema({
   image: {
     type: String,
     required: true,
-    validate: {
-      validator: (v) => REGEX.test(v),
-    },
   },
   trailerLink: {
     type: String,
@@ -39,9 +36,6 @@ const cardSchema = new mongoose.Schema({
   thumbnail: {
     type: String,
     required: true,
-    validate: {
-      validator: (v) => REGEX.test(v),
-    },
   },
   owner: {
     type: mongoose.Schema.Types.Mixed,

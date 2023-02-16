@@ -102,14 +102,7 @@ module.exports.logout = (req, res, next) => {
   }
   clearCookie('jwt')
     .then((res) => {
-      res.status(200)
-        .send(
-          {
-            _id: newUser._id,
-            name: newUser.name,
-            email: newUser.email,
-          },
-        )
+      res.status(200).send(res)
     })
     .catch(next);
 };

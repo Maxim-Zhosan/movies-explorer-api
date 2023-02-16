@@ -101,11 +101,6 @@ module.exports.logout = (req, res, next) => {
     next(new UnauthorizedError('Необходима авторизация'));
   }
   res.clearCookie('jwt')
-  .send({
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-  })
   .end();
 };
 

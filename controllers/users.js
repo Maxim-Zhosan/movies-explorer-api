@@ -98,9 +98,15 @@ module.exports.login = (req, res, next) => {
 module.exports.logout = (req, res, next) => {
   const { cookie } = req.headers;
   if (!cookie || !cookie.startsWith('jwt=')) {
-    return next(new UnauthorizedError('Необходима авторизация'));
+    next(new UnauthorizedError('Необходима авторизация'));
   }
-  return res.clearCookie('jwt');
+  res.clearCookie('jwt')
+  .send({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+  })
+  .end();
 };
 
 module.exports.createUser = (req, res, next) => {

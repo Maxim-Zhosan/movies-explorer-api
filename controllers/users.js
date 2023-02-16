@@ -100,7 +100,7 @@ module.exports.logout = (req, res, next) => {
   if (!cookie || !cookie.startsWith('jwt=')) {
     next(new UnauthorizedError('Необходима авторизация'));
   }
-  res.status(202).clearCookie('jwt').send('cookie cleared')
+  res.status(202).clearCookie('jwt').send({cookie})
     .catch(next);
 };
 

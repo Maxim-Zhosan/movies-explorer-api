@@ -23,18 +23,8 @@ const cardSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    url: {
-      type: String,
-      required: true,
-    },
-    formats: {
-      thumbnail: {
-        url: {
-          type: String,
-          required: true,
-        },
-      },
-    },
+    type: String,
+    required: true,
   },
   trailerLink: {
     type: String,

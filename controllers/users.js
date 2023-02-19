@@ -28,44 +28,43 @@ module.exports.getCurrentUser = (req, res, next) => {
 
 module.exports.updateProfile = (req, res, next) => {
   const { name, email } = req.body;
-  User.findByIdAndUpdate(
-    User.findOne({ email })
-      .then((user) => {
-        if (user) {
-          next(new ConflictError('Пользователь с таким email уже существует'));
-        }
-      }),
-    req.user._id,
-    { name, email },
-    {
-      new: true, // обработчик then получит на вход обновлённую запись
-      runValidators: true, // данные будут валидированы перед изменением
-      upsert: false, // если пользователь не найден, вернётся ошибка
-    },
-  )
+  User.findOne({ email })
     .then((user) => {
-      if (!user) {
-        next(new NotFoundError('Пользователь с указанным _id не найден'));
+      if (user) {
+        next(new ConflictError('Пользователь с таким email уже существует'));
       } else {
-        res.send(
+        User.findByIdAndUpdate(
+          req.user._id,
+          { name, email },
           {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
+            new: true, // обработчик then получит на вход обновлённую запись
+            runValidators: true, // данные будут валидированы перед изменением
+            upsert: false, // если пользователь не найден, вернётся ошибка
           },
-        );
+        )
+          .then((user) => {
+            if (!user) {
+              next(new NotFoundError('Пользователь с указанным _id не найден'));
+            } else {
+              res.send(
+                {
+                  _id: user._id,
+                  name: user.name,
+                  email: user.email,
+                },
+              );
+            }
+          })
+          .catch((err) => {
+            if (err.name === 'ValidationError') {
+              next(new BadRequestError('Переданы некорректные данные при обновлении профиля'));
+            } else {
+              next(err);
+            }
+          });
       }
     })
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные при обновлении профиля'));
-      } else {
-        next(err);
-      }
-    });
-}
-    })
-  };
+};
 
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;

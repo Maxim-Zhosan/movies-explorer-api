@@ -27,11 +27,11 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 module.exports.updateProfile = (req, res, next) => {
-  const { _id, name, email } = req.body;
+  const { name, email } = req.body;
   User.findOne({ email })
     .then((user) => {
-      if (user) {
-        next(new ConflictError(user._id + req.body._id))
+      if (user[_id] === req.body._id) {
+        next(new ConflictError(user[_id] + req.body._id))
       } else {
         User.findByIdAndUpdate(
           req.user._id,

@@ -27,8 +27,8 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 module.exports.updateProfile = (req, res, next) => {
-  const { name, email } = req.body;
-  User.findOne({ email })
+  const { _id, name, email } = req.body;
+  User.findOne({ email }, {_id: {$eq : _id}})
     .then((user) => {
       if (user) {
         next(new ConflictError('Пользователь с таким email уже существует'))

@@ -28,7 +28,7 @@ module.exports.getCurrentUser = (req, res, next) => {
 
 module.exports.updateProfile = (req, res, next) => {
   const { _id, name, email } = req.body;
-  User.find( {
+  User.findOne( {
     $and : [
       {email: { email }}, {_id: {$ne : _id}}
     ]

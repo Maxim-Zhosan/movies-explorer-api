@@ -30,8 +30,8 @@ module.exports.updateProfile = (req, res, next) => {
   const { name, email } = req.body;
   User.findOne({ email })
     .then((user) => {
-      if (user[_id] === req.body._id) {
-        next(new ConflictError(user[_id] + req.body._id))
+      if (user) {
+        next(new ConflictError('Пользователь с таким email уже существует'))
       } else {
         User.findByIdAndUpdate(
           req.user._id,

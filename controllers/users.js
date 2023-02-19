@@ -28,7 +28,11 @@ module.exports.getCurrentUser = (req, res, next) => {
 
 module.exports.updateProfile = (req, res, next) => {
   const { _id, name, email } = req.body;
-  User.find({$and : [{email: email}, {_id: {$eq : _id}}]})
+  User.find( {
+    $and : [
+      {email: { email }}, {_id: {$ne : _id}}
+    ]
+  } )
     .then((user) => {
       if (user) {
         next(new ConflictError(user))

@@ -31,7 +31,7 @@ module.exports.updateProfile = (req, res, next) => {
   User.find({$and : [{email: email}, {_id: {$eq : _id}}]})
     .then((user) => {
       if (user) {
-        next(new ConflictError('Пользователь с таким email уже существует'))
+        next(new ConflictError(user))
       } else {
         User.findByIdAndUpdate(
           req.user._id,

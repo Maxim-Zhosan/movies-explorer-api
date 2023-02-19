@@ -30,7 +30,7 @@ module.exports.updateProfile = (req, res, next) => {
   const { _id, name, email } = req.body;
   User.findOne( {
     $and : [
-      {email: { email }}, {_id: {$ne : _id}}
+      {email: {email}}, {_id: {$ne : ObjectId({_id})}}
     ]
   } )
     .then((user) => {

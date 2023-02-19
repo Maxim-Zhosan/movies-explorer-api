@@ -31,8 +31,8 @@ module.exports.updateProfile = (req, res, next) => {
   console.log(req.user);
   User.findOne({ email })
     .then((user) => {
-      if (user) {
-        next(new ConflictError(user));
+      if (user && user._id !== req.user._id) {
+        next(new ConflictError({user}));
       } else {
         User.findByIdAndUpdate(
           req.user._id,
